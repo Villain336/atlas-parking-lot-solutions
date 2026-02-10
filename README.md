@@ -1,155 +1,70 @@
 # Atlas Parking Lot Solutions
 
-**Professional SEO-optimized static website for Atlas Parking Lot Solutions** â a premier parking lot paving, sealcoating, and striping business serving Greensboro, NC and surrounding areas.
+SEO-optimized static website for **Atlas Parking Lot Solutions** â professional parking lot paving, line striping, and ADA compliance services in Greensboro, NC.
 
-## ð Overview
+## Tech Stack
 
-A modern, fast-loading, mobile-responsive website built with cutting-edge web technologies and comprehensive SEO optimization. Features a dark slate aesthetic with glass-morphism design elements for a professional, trustworthy appearance.
+- **HTML5** â Semantic markup (header, nav, main, section, article, footer)
+- **Custom CSS** â Design system with CSS custom properties (`:root` tokens), no frameworks
+- **Vanilla JavaScript** â Mobile nav, scroll reveal, FAQ accordion, form validation, animated counters
+- **JSON-LD Structured Data** â LocalBusiness, Service, FAQPage schemas
 
-## ð ï¸ Tech Stack
+## Design System
 
-- **HTML5** â Semantic markup for accessibility and SEO
-- **Tailwind CSS (CDN)** â Utility-first CSS framework for rapid styling
-- **Vanilla JavaScript** â Lightweight interactivity and dynamic elements
-- **JSON-LD Structured Data** â Rich snippets for enhanced search visibility
-- **Inter Font (Google Fonts)** â Clean, professional typography
+| Token | Value |
+|---|---|
+| `--bg` | `#f6f7fb` (light page background) |
+| `--surface` | `#ffffff` (white cards) |
+| `--dark` | `#0f172a` (hero & alt sections) |
+| `--accent` | `#2563eb` (blue CTA / links) |
+| `--radius` | `22px` (card corners) |
+| `--radius-pill` | `999px` (buttons / badges) |
+| `--shadow` | Subtle dual-layer box shadow |
+| `--lift` | `translateY(-6px)` hover effect |
+| `--glass` | `blur(16px)` frosted backdrop |
+| `--font` | System font stack (no Google Fonts) |
 
-## ð¨ Design Features
+### Key Classes
 
-- **Dark Slate-950 Aesthetic** â Modern, sophisticated color palette
-- **Glass-morphism Cards** â Frosted glass effect with backdrop blur
-- **Mobile-Responsive** â Optimized for all device sizes
-- **Smooth Animations** â Subtle fade-ins and hover effects
-- **Accessible UI** â WCAG-compliant contrast ratios and focus states
+``.wrap`` Â· ``.section`` Â· ``.section.alt`` Â· ``.hero`` Â· ``.hero.short`` Â· ``.hero-card`` Â· ``.badge`` Â· ``.btn`` Â· ``.btn.primary`` Â· ``.btn.white`` Â· ``.btn.outline`` Â· ``.pill-btn`` Â· ``.card`` Â· ``.glass`` Â· ``.mini-card`` Â· ``.split`` Â· ``.ba-grid`` Â· ``.ba-tile`` Â· ``.icon-wrap`` Â· ``.tag`` Â· ``.faq-item`` Â· ``.reveal``
 
-## ð Website Structure
+## Pages
 
-```
-atlas-parking-lot-solutions/
-âââ index.html          # Homepage with hero, services overview, CTA
-âââ services.html       # Detailed service pages (paving, sealcoating, striping)
-âââ about.html          # Company history, team, values
-âââ contact.html        # Contact form, phone, email, service area map
-âââ sitemap.xml         # XML sitemap for search engines
-âââ robots.txt          # Crawler directives
-```
+| File | Description |
+|---|---|
+| `index.html` | Homepage â hero, stats, services overview, process, testimonials, FAQ |
+| `services.html` | Service details â pothole filling, line striping, ADA compliance |
+| `about.html` | Company story, values, differentiators, service areas, certifications |
+| `contact.html` | Contact form, info cards, emergency callout, Google Maps embed |
 
-## ð SEO Features
+## SEO Features
 
-### On-Page Optimization
-- **Semantic HTML5** â Proper heading hierarchy, landmarks, ARIA labels
-- **Meta Tags** â Title, description, keywords optimized for local search
-- **Open Graph Protocol** â Enhanced social media sharing previews
-- **Twitter Cards** â Rich media cards for Twitter sharing
-- **Canonical URLs** â Prevent duplicate content issues
+- Unique `<title>` and `<meta description>` per page targeting 10+ keyword clusters
+- Open Graph and Twitter Card meta tags on every page
+- Canonical URLs
+- JSON-LD: `LocalBusiness` (with geo, hours, areaServed), `Service` (x3), `FAQPage`
+- `sitemap.xml` with priority weights
+- `robots.txt` with sitemap reference
+- Semantic HTML5 throughout
 
-### Structured Data (JSON-LD)
-- **LocalBusiness Schema** â Business name, address, phone, hours, service area
-- **Service Schema** â Individual service offerings with descriptions
-- **FAQ Schema** â Common questions with rich snippet eligibility
-- **BreadcrumbList Schema** â Navigational structure for search results
+## Target Keywords
 
-### Technical SEO
-- **sitemap.xml** â All pages indexed for crawlers
-- **robots.txt** â Optimized crawler access
-- **Fast Load Times** â Minimal dependencies, CDN-delivered assets
-- **Mobile-First Design** â Responsive and touch-optimized
+- parking lot paving Greensboro
+- parking lot striping Greensboro NC
+- pothole repair Greensboro
+- ADA compliant parking lot
+- asphalt maintenance Greensboro
+- line striping services
+- commercial paving Greensboro
 
-### Target Keywords
-- Parking lot paving Greensboro NC
-- Asphalt sealcoating Greensboro
-- Parking lot striping services
-- Commercial paving contractors
-- Asphalt repair Greensboro
-- Parking lot maintenance
+## Deploy
 
-## ð Deployment
+Static files â open `index.html` directly or host on any static platform:
 
-### Local Development
-1. Clone the repository:
-   ```bash
-   git clone https://github.com/yourusername/atlas-parking-lot-solutions.git
-   cd atlas-parking-lot-solutions
-   ```
+- **GitHub Pages:** Settings â Pages â Deploy from branch
+- **Netlify / Vercel:** Drag and drop the repo folder
+- **Any web server:** Upload all files preserving directory structure
 
-2. Open `index.html` in your browser:
-   ```bash
-   open index.html
-   ```
-   Or use a local server:
-   ```bash
-   python -m http.server 8000
-   ```
+## License
 
-### Static Hosting Platforms
-
-**GitHub Pages**
-1. Push code to GitHub repository
-2. Go to Settings â Pages
-3. Select branch (main) and root directory
-4. Save and deploy
-
-**Netlify**
-1. Drag and drop project folder to [Netlify Drop](https://app.netlify.com/drop)
-2. Or connect GitHub repository for continuous deployment
-
-**Vercel**
-1. Import GitHub repository
-2. Configure as static site
-3. Deploy with one click
-
-**Cloudflare Pages**
-1. Connect GitHub repository
-2. Set build command to `none`
-3. Deploy
-
-## ð± Browser Support
-
-- Chrome (latest)
-- Firefox (latest)
-- Safari (latest)
-- Edge (latest)
-- Mobile browsers (iOS Safari, Chrome Android)
-
-## ð§ Customization
-
-### Update Business Information
-- Edit contact details in `contact.html`
-- Update JSON-LD structured data in each HTML file
-- Modify service offerings in `services.html`
-
-### Styling
-- All styles use Tailwind CSS utility classes
-- Adjust colors by changing `slate-950`, `slate-800`, etc.
-- Modify glass-morphism by editing `backdrop-blur` and `bg-opacity` values
-
-### SEO
-- Update meta tags in `<head>` section of each page
-- Modify `sitemap.xml` if adding/removing pages
-- Adjust structured data schemas for business specifics
-
-## ð Performance
-
-- **Lighthouse Score Target:** 95+ across all metrics
-- **Core Web Vitals:** Optimized LCP, FID, CLS
-- **Asset Loading:** CDN-delivered Tailwind CSS and Google Fonts
-- **No Build Process Required:** Pure HTML/CSS/JS for instant loading
-
-## ð License
-
-MIT License â see [LICENSE](LICENSE) file for details.
-
-## ð¤ Contributing
-
-Contributions, issues, and feature requests are welcome!
-
-## ð§ Contact
-
-**Atlas Parking Lot Solutions**  
-Greensboro, NC  
-Phone: (336) XXX-XXXX  
-Email: info@atlasparkingsolutions.com
-
----
-
-**Built with â¤ï¸ for local businesses** | **Optimized for search engines** | **Designed for conversions**
+MIT
