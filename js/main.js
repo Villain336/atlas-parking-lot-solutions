@@ -1,1 +1,289 @@
-'use strict';document.addEventListener('DOMContentLoaded',()=>{const nav=document.getElementById('nav');const mobileMenuBtn=document.getElementById('mobile-menu-btn');const mobileMenu=document.getElementById('mobile-menu');const contactForm=document.getElementById('contact-form');let lastScrollY=window.scrollY;let ticking=false;function handleScroll(){lastScrollY=window.scrollY;if(!ticking){window.requestAnimationFrame(()=>{if(lastScrollY>50){nav?.classList.add('scrolled');}else{nav?.classList.remove('scrolled');}if(lastScrollY>500){showBackToTop();}else{hideBackToTop();}ticking=false;});ticking=true;}}window.addEventListener('scroll',handleScroll,{passive:true});if(mobileMenuBtn&&mobileMenu){mobileMenuBtn.addEventListener('click',()=>{const isHidden=mobileMenu.classList.contains('hidden');mobileMenu.classList.toggle('hidden');const lines=mobileMenuBtn.querySelectorAll('span');if(!isHidden){lines[0]?.classList.remove('rotate-45','translate-y-2');lines[1]?.classList.remove('opacity-0');lines[2]?.classList.remove('-rotate-45','-translate-y-2');}else{lines[0]?.classList.add('rotate-45','translate-y-2');lines[1]?.classList.add('opacity-0');lines[2]?.classList.add('-rotate-45','-translate-y-2');}});const mobileLinks=mobileMenu.querySelectorAll('a');mobileLinks.forEach(link=>{link.addEventListener('click',()=>{mobileMenu.classList.add('hidden');const lines=mobileMenuBtn.querySelectorAll('span');lines[0]?.classList.remove('rotate-45','translate-y-2');lines[1]?.classList.remove('opacity-0');lines[2]?.classList.remove('-rotate-45','-translate-y-2');});});document.addEventListener('click',(e)=>{if(!mobileMenu.classList.contains('hidden')&&!mobileMenu.contains(e.target)&&!mobileMenuBtn.contains(e.target)){mobileMenu.classList.add('hidden');const lines=mobileMenuBtn.querySelectorAll('span');lines[0]?.classList.remove('rotate-45','translate-y-2');lines[1]?.classList.remove('opacity-0');lines[2]?.classList.remove('-rotate-45','-translate-y-2');}});}const anchorLinks=document.querySelectorAll('a[href^="#"]');anchorLinks.forEach(link=>{link.addEventListener('click',(e)=>{const href=link.getAttribute('href');if(href&&href!=='#'){e.preventDefault();const targetId=href.substring(1);const targetElement=document.getElementById(targetId);if(targetElement){const navHeight=80;const targetPosition=targetElement.getBoundingClientRect().top+window.scrollY-navHeight;window.scrollTo({top:targetPosition,behavior:'smooth'});}else if(href.startsWith('#')){const newUrl=window.location.pathname.includes('services.html')?`services.html${href}`:`index.html${href}`;window.location.href=newUrl;}}});});if(window.location.hash){setTimeout(()=>{const targetId=window.location.hash.substring(1);const targetElement=document.getElementById(targetId);if(targetElement){const navHeight=80;const targetPosition=targetElement.getBoundingClientRect().top+window.scrollY-navHeight;window.scrollTo({top:targetPosition,behavior:'smooth'});}},100);}const revealElements=document.querySelectorAll('.reveal');const revealObserver=new IntersectionObserver((entries)=>{entries.forEach(entry=>{if(entry.isIntersecting){entry.target.classList.add('revealed');revealObserver.unobserve(entry.target);}});},{threshold:0.1});revealElements.forEach(el=>{el.classList.add('opacity-0','translate-y-8');revealObserver.observe(el);});const detailsElements=document.querySelectorAll('details');detailsElements.forEach(details=>{details.addEventListener('toggle',function(){if(this.open){detailsElements.forEach(other=>{if(other!==this&&other.open){other.open=false;}});}});const summary=details.querySelector('summary');const content=details.querySelector('summary ~ *');if(content){content.style.transition='max-height 0.3s ease-out, opacity 0.3s ease-out';content.style.overflow='hidden';if(!details.open){content.style.maxHeight='0px';content.style.opacity='0';}else{content.style.maxHeight=content.scrollHeight+'px';content.style.opacity='1';}}details.addEventListener('toggle',function(){const content=this.querySelector('summary ~ *');if(content){if(this.open){content.style.maxHeight=content.scrollHeight+'px';content.style.opacity='1';}else{content.style.maxHeight='0px';content.style.opacity='0';}}});});if(contactForm){const nameInput=contactForm.querySelector('input[name="name"]');const emailInput=contactForm.querySelector('input[name="email"]');const phoneInput=contactForm.querySelector('input[name="phone"]');const messageInput=contactForm.querySelector('textarea[name="message"]');function clearErrors(){const errors=contactForm.querySelectorAll('.error-message');errors.forEach(error=>error.remove());}function showError(input,message){clearError(input);const error=document.createElement('p');error.className='error-message text-red-400 text-sm mt-1';error.textContent=message;input.parentElement.appendChild(error);}function clearError(input){const existingError=input.parentElement.querySelector('.error-message');if(existingError){existingError.remove();}}function validateEmail(email){return/^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(email);}function validatePhone(phone){return/^[\d\s\-\+\(\)]+$/.test(phone)&&phone.replace(/\D/g,'').length>=10;}contactForm.addEventListener('submit',(e)=>{e.preventDefault();clearErrors();let isValid=true;if(!nameInput.value.trim()){showError(nameInput,'Name is required');isValid=false;}if(!emailInput.value.trim()){showError(emailInput,'Email is required');isValid=false;}else if(!validateEmail(emailInput.value)){showError(emailInput,'Please enter a valid email address');isValid=false;}if(phoneInput&&phoneInput.value.trim()&&!validatePhone(phoneInput.value)){showError(phoneInput,'Please enter a valid phone number');isValid=false;}if(isValid){const formContent=contactForm.innerHTML;contactForm.innerHTML=`<div class="bg-slate-800/50 backdrop-blur-sm border border-slate-700/50 rounded-xl p-8 text-center"><svg class="w-16 h-16 mx-auto mb-4 text-emerald-400" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 12l2 2 4-4m6 2a9 9 0 11-18 0 9 9 0 0118 0z"></path></svg><h3 class="text-2xl font-bold text-white mb-2">Thank You!</h3><p class="text-slate-300">We've received your message and will get back to you within 24 hours.</p></div>`;setTimeout(()=>{contactForm.innerHTML=formContent;contactForm.reset();},5000);}});}const statNumbers=document.querySelectorAll('.stat-number');const statObserver=new IntersectionObserver((entries)=>{entries.forEach(entry=>{if(entry.isIntersecting&&!entry.target.classList.contains('counted')){entry.target.classList.add('counted');animateCounter(entry.target);statObserver.unobserve(entry.target);}});},{threshold:0.5});statNumbers.forEach(stat=>statObserver.observe(stat));function animateCounter(element){const target=parseInt(element.getAttribute('data-target')||'0');const duration=2000;const start=performance.now();function update(currentTime){const elapsed=currentTime-start;const progress=Math.min(elapsed/duration,1);const current=Math.floor(progress*target);element.textContent=current.toString();if(progress<1){requestAnimationFrame(update);}else{element.textContent=target+'+';}}requestAnimationFrame(update);}let backToTopBtn=null;function createBackToTopButton(){backToTopBtn=document.createElement('button');backToTopBtn.innerHTML=`<svg class="w-6 h-6" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M5 10l7-7m0 0l7 7m-7-7v18"></path></svg>`;backToTopBtn.className='fixed bottom-8 right-8 bg-slate-800/50 backdrop-blur-sm border border-slate-700/50 text-white p-4 rounded-xl shadow-lg hover:bg-slate-700/50 transition-all duration-300 opacity-0 pointer-events-none z-50';backToTopBtn.style.transition='opacity 0.3s ease-in-out';backToTopBtn.addEventListener('click',()=>{window.scrollTo({top:0,behavior:'smooth'});});document.body.appendChild(backToTopBtn);}function showBackToTop(){if(!backToTopBtn){createBackToTopButton();}backToTopBtn.style.opacity='1';backToTopBtn.style.pointerEvents='auto';}function hideBackToTop(){if(backToTopBtn){backToTopBtn.style.opacity='0';backToTopBtn.style.pointerEvents='none';}}handleScroll();});
+'use strict';
+
+document.addEventListener('DOMContentLoaded', function() {
+
+  // ========================================
+  // 1. MOBILE NAVIGATION TOGGLE
+  // ========================================
+  const menuBtn = document.querySelector('.menu-btn');
+  const mobileNav = document.querySelector('.mobile-nav');
+
+  if (menuBtn && mobileNav) {
+    // Toggle mobile nav on menu button click
+    menuBtn.addEventListener('click', function(e) {
+      e.stopPropagation();
+      const isOpen = mobileNav.classList.contains('open');
+      mobileNav.classList.toggle('open');
+      menuBtn.setAttribute('aria-expanded', !isOpen);
+    });
+
+    // Close mobile nav when clicking a link inside it
+    const mobileNavLinks = mobileNav.querySelectorAll('a');
+    mobileNavLinks.forEach(function(link) {
+      link.addEventListener('click', function() {
+        mobileNav.classList.remove('open');
+        menuBtn.setAttribute('aria-expanded', 'false');
+      });
+    });
+
+    // Close mobile nav when clicking outside
+    document.addEventListener('click', function(e) {
+      if (!mobileNav.contains(e.target) && !menuBtn.contains(e.target)) {
+        if (mobileNav.classList.contains('open')) {
+          mobileNav.classList.remove('open');
+          menuBtn.setAttribute('aria-expanded', 'false');
+        }
+      }
+    });
+  }
+
+  // ========================================
+  // 2. SMOOTH SCROLL FOR ANCHOR LINKS
+  // ========================================
+  const anchorLinks = document.querySelectorAll('a[href^="#"]');
+  anchorLinks.forEach(function(link) {
+    link.addEventListener('click', function(e) {
+      const href = this.getAttribute('href');
+      if (href === '#' || href === '') return;
+      
+      const targetId = href.substring(1);
+      const targetElement = document.getElementById(targetId);
+      
+      if (targetElement) {
+        e.preventDefault();
+        targetElement.scrollIntoView({
+          behavior: 'smooth',
+          block: 'start'
+        });
+      }
+    });
+  });
+
+  // Handle hash on page load (for cross-page anchors)
+  if (window.location.hash) {
+    setTimeout(function() {
+      const targetId = window.location.hash.substring(1);
+      const targetElement = document.getElementById(targetId);
+      if (targetElement) {
+        targetElement.scrollIntoView({
+          behavior: 'smooth',
+          block: 'start'
+        });
+      }
+    }, 100);
+  }
+
+  // ========================================
+  // 3. SCROLL REVEAL ANIMATION
+  // ========================================
+  const revealElements = document.querySelectorAll('.reveal');
+  
+  if (revealElements.length > 0 && 'IntersectionObserver' in window) {
+    const revealObserver = new IntersectionObserver(function(entries) {
+      entries.forEach(function(entry) {
+        if (entry.isIntersecting) {
+          entry.target.classList.add('revealed');
+          revealObserver.unobserve(entry.target);
+        }
+      });
+    }, {
+      threshold: 0.15,
+      rootMargin: '0px 0px -40px 0px'
+    });
+
+    revealElements.forEach(function(el) {
+      revealObserver.observe(el);
+    });
+  }
+
+  // ========================================
+  // 4. FAQ ACCORDION (SINGLE OPEN)
+  // ========================================
+  const faqItems = document.querySelectorAll('details.faq-item');
+  
+  faqItems.forEach(function(item) {
+    item.addEventListener('toggle', function() {
+      if (this.open) {
+        faqItems.forEach(function(otherItem) {
+          if (otherItem !== item && otherItem.open) {
+            otherItem.open = false;
+          }
+        });
+      }
+    });
+  });
+
+  // ========================================
+  // 5. CONTACT FORM VALIDATION
+  // ========================================
+  const contactForm = document.getElementById('contact-form');
+  
+  if (contactForm) {
+    contactForm.addEventListener('submit', function(e) {
+      e.preventDefault();
+      
+      // Clear previous errors
+      const existingErrors = contactForm.querySelectorAll('.form-error');
+      existingErrors.forEach(function(err) {
+        err.remove();
+      });
+      
+      let isValid = true;
+      
+      // Get form fields
+      const nameField = contactForm.querySelector('input[name="name"], input[id="name"]');
+      const emailField = contactForm.querySelector('input[name="email"], input[id="email"], input[type="email"]');
+      const phoneField = contactForm.querySelector('input[name="phone"], input[id="phone"], input[type="tel"]');
+      
+      // Validate name
+      if (nameField) {
+        const nameValue = nameField.value.trim();
+        if (nameValue.length === 0) {
+          showError(nameField, 'Name is required');
+          isValid = false;
+        }
+      }
+      
+      // Validate email
+      if (emailField) {
+        const emailValue = emailField.value.trim();
+        const emailRegex = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
+        if (emailValue.length === 0) {
+          showError(emailField, 'Email is required');
+          isValid = false;
+        } else if (!emailRegex.test(emailValue)) {
+          showError(emailField, 'Please enter a valid email address');
+          isValid = false;
+        }
+      }
+      
+      // Validate phone (optional, but validate format if provided)
+      if (phoneField) {
+        const phoneValue = phoneField.value.trim();
+        if (phoneValue.length > 0) {
+          const phoneRegex = /^[0-9\s\-\(\)\+]+$/;
+          if (!phoneRegex.test(phoneValue)) {
+            showError(phoneField, 'Please enter a valid phone number');
+            isValid = false;
+          }
+        }
+      }
+      
+      // If valid, show success message
+      if (isValid) {
+        contactForm.style.display = 'none';
+        const successMessage = document.createElement('div');
+        successMessage.style.textAlign = 'center';
+        successMessage.style.padding = '2rem';
+        successMessage.innerHTML = '<div style="font-size: 3rem; color: #10b981; margin-bottom: 1rem;">â</div><p style="font-size: 1.125rem; font-weight: 500;">Thank you! We\'ll be in touch within 2 business hours.</p>';
+        contactForm.parentNode.insertBefore(successMessage, contactForm.nextSibling);
+      }
+    });
+    
+    function showError(field, message) {
+      const errorElement = document.createElement('p');
+      errorElement.className = 'form-error';
+      errorElement.textContent = message;
+      errorElement.style.color = '#ef4444';
+      errorElement.style.fontSize = '0.8rem';
+      errorElement.style.marginTop = '4px';
+      field.parentNode.insertBefore(errorElement, field.nextSibling);
+    }
+  }
+
+  // ========================================
+  // 6. ANIMATED COUNTERS
+  // ========================================
+  const counterElements = document.querySelectorAll('.ba-tile .num[data-target]');
+  
+  if (counterElements.length > 0 && 'IntersectionObserver' in window) {
+    const counterObserver = new IntersectionObserver(function(entries) {
+      entries.forEach(function(entry) {
+        if (entry.isIntersecting) {
+          animateCounter(entry.target);
+          counterObserver.unobserve(entry.target);
+        }
+      });
+    }, {
+      threshold: 0.5
+    });
+
+    counterElements.forEach(function(el) {
+      counterObserver.observe(el);
+    });
+  }
+
+  function animateCounter(element) {
+    const targetText = element.getAttribute('data-target');
+    const hasSuffix = targetText.includes('+');
+    const targetValue = parseInt(targetText.replace(/\D/g, ''), 10);
+    
+    if (isNaN(targetValue)) return;
+    
+    const duration = 2000;
+    const startTime = performance.now();
+    
+    function update(currentTime) {
+      const elapsed = currentTime - startTime;
+      const progress = Math.min(elapsed / duration, 1);
+      const currentValue = Math.floor(progress * targetValue);
+      
+      element.textContent = currentValue.toLocaleString();
+      
+      if (progress < 1) {
+        requestAnimationFrame(update);
+      } else {
+        element.textContent = targetValue.toLocaleString() + (hasSuffix ? '+' : '');
+      }
+    }
+    
+    requestAnimationFrame(update);
+  }
+
+  // ========================================
+  // 7. BACK TO TOP BUTTON
+  // ========================================
+  const backToTopBtn = document.createElement('button');
+  backToTopBtn.setAttribute('aria-label', 'Back to top');
+  backToTopBtn.innerHTML = 'â';
+  backToTopBtn.style.position = 'fixed';
+  backToTopBtn.style.bottom = '32px';
+  backToTopBtn.style.right = '32px';
+  backToTopBtn.style.width = '48px';
+  backToTopBtn.style.height = '48px';
+  backToTopBtn.style.borderRadius = '50%';
+  backToTopBtn.style.background = '#2563eb';
+  backToTopBtn.style.color = 'white';
+  backToTopBtn.style.border = 'none';
+  backToTopBtn.style.fontSize = '24px';
+  backToTopBtn.style.cursor = 'pointer';
+  backToTopBtn.style.boxShadow = '0 4px 12px rgba(0, 0, 0, 0.15)';
+  backToTopBtn.style.zIndex = '100';
+  backToTopBtn.style.opacity = '0';
+  backToTopBtn.style.pointerEvents = 'none';
+  backToTopBtn.style.transition = 'opacity 0.3s ease';
+  document.body.appendChild(backToTopBtn);
+
+  // Show/hide back to top button based on scroll position
+  function toggleBackToTop() {
+    if (window.pageYOffset > 500) {
+      backToTopBtn.style.opacity = '1';
+      backToTopBtn.style.pointerEvents = 'auto';
+    } else {
+      backToTopBtn.style.opacity = '0';
+      backToTopBtn.style.pointerEvents = 'none';
+    }
+  }
+
+  window.addEventListener('scroll', toggleBackToTop, { passive: true });
+  toggleBackToTop();
+
+  // Scroll to top on click
+  backToTopBtn.addEventListener('click', function() {
+    window.scrollTo({
+      top: 0,
+      behavior: 'smooth'
+    });
+  });
+
+});
