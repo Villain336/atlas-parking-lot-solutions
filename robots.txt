@@ -1,15 +1,7 @@
-# robots.txt for https://atlasparkinglot.com/
-
-# Allow all crawlers by default
 User-agent: *
 Allow: /
 
-# Disallow specific directories
-Disallow: /admin/
-Disallow: /private/
-
-# Crawl delay for politeness
-Crawl-delay: 1
-
-# Sitemap location
 Sitemap: https://atlasparkinglot.com/sitemap.xml
+
+# Atlas Parking Lot Solutions
+# Parking lot paving, striping, and maintenance in Greensboro, NC
